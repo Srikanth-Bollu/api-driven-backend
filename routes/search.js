@@ -11,16 +11,19 @@ router.post("/search", async (req, res) => {
     const response = await axios.get(
       `https://api.github.com/search/repositories?q=${keyword}&per_page=5`
     );
+    // console.log(response.data);
     const repos = response.data.items.map(repo => ({
       name: repo.name,
       url: repo.html_url,
       description: repo.description
     }));
+    
+    console.log(repos);
 
-    const newResult = new Result({ keyword, results: repos });
-    await newResult.save();
+    // const newResult = new Result({ keyword, results: repos });
+    // await newResult.save();
 
-    res.json(newResult);
+    return res.json(repos);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch data" });
   }
