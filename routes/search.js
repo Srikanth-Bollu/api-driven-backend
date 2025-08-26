@@ -17,11 +17,11 @@ router.post("/search", async (req, res) => {
       url: repo.html_url,
       description: repo.description
     }));
-    
+
     console.log(repos);
 
-    // const newResult = new Result({ keyword, results: repos });
-    // await newResult.save();
+    const newResult = new Result({ keyword, results: repos });
+    await newResult.save();
 
     return res.json(repos);
   } catch (err) {
